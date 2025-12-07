@@ -1,28 +1,32 @@
-import type { CreateExpressContextOptions } from "@trpc/server/adapters/express";
-import type { User } from "../../drizzle/schema";
-import { sdk } from "./sdk";
+import { inferAsyncReturnType } from '@trpc/server';
+import { CreateExpressContextOptions } from '@trpc/server/adapters/express';
+import { verifyToken } from './auth';
 
-export type TrpcContext = {
-  req: CreateExpressContextOptions["req"];
-  res: CreateExpressContextOptions["res"];
-  user: User | null;
-};
+export interface User {
+  id: string;
+  email: string;
+  // Adicione outros campos de usuário
+}
 
-export async function createContext(
-  opts: CreateExpressContextOptions
-): Promise<TrpcContext> {
+export async function createContext({ req, res }: CreateExpressContextOptions) {
+  const token = req.headers.authorization?.split(' ')[1];
   let user: User | null = null;
 
-  try {
-    user = await sdk.authenticateRequest(opts.req);
-  } catch (error) {
-    // Authentication is optional for public procedures.
-    user = null;
+  if (token) {
+    try {
+      // A função verifyToken deve ser implementada para validar o JWT
+      // e retornar os dados do usuário (id, email, etc.)
+      user = await verifyToken(token);
+    } catch (error) {
+      console.error('Erro ao verificar token:', error);
+    }
   }
 
   return {
-    req: opts.req,
-    res: opts.res,
+    req,
+    res,
     user,
   };
 }
+
+export type Context = inferAsyncReturnType<typeof createContext>;

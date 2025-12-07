@@ -1,5 +1,7 @@
 import { useAuth } from "@/_core/hooks/useAuth";
-import { getLoginUrl } from "@/const";
+
+
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { trpc } from "@/lib/trpc";
@@ -56,7 +58,7 @@ export default function Checkout() {
   // Redirecionar para login se não estiver autenticado
   useEffect(() => {
     if (!authLoading && !isAuthenticated) {
-      window.location.href = getLoginUrl();
+      window.location.href = "/api/auth/oauth";
     }
   }, [authLoading, isAuthenticated]);
 

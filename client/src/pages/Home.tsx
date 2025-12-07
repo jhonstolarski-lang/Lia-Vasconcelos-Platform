@@ -54,13 +54,21 @@ export default function Home() {
       <header className="bg-white/80 backdrop-blur-sm border-b border-rose-100 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <h1 className="text-2xl font-bold text-rose-600">Lia Vasconcelos</h1>
-          {isAuthenticated && (
+          {isAuthenticated ? (
             <Button
               variant="outline"
               onClick={handleViewContent}
               className="border-rose-300 text-rose-700 hover:bg-rose-50"
             >
               {activeSubscription ? "Ver Conteúdo" : "Minha Conta"}
+            </Button>
+          ) : (
+            <Button
+              variant="default"
+              onClick={() => (window.location.href = "/api/auth/oauth")}
+              className="bg-rose-600 hover:bg-rose-700 text-white"
+            >
+              Entrar
             </Button>
           )}
         </div>

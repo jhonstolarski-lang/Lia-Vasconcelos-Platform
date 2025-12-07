@@ -1,7 +1,11 @@
-import { getLoginUrl } from "@/const";
+
 import { trpc } from "@/lib/trpc";
 import { TRPCClientError } from "@trpc/client";
 import { useCallback, useEffect, useMemo } from "react";
+
+function getLoginUrl() {
+  return "/api/auth/oauth";
+}
 
 type UseAuthOptions = {
   redirectOnUnauthenticated?: boolean;
