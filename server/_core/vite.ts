@@ -1,8 +1,8 @@
 import { Express } from 'express';
 import { Server } from 'http';
 import express from 'express';
-import * as path from 'path';
-import * as fs from 'fs/promises';
+const path = require('path');
+const fs = require('fs/promises');
 
 // Funções placeholder para compatibilidade com o index.ts
 export async function setupVite(app: Express, server: Server) {
