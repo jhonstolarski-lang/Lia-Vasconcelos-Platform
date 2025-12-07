@@ -10,7 +10,9 @@
     "check": "tsc --noEmit",
     "format": "prettier --write .",
     "test": "vitest run",
-    "db:push": "drizzle-kit generate && drizzle-kit migrate"
+    "db:push": "cross-env DATABASE_URL=${DATABASE_URL} drizzle-kit generate && cross-env DATABASE_URL=${DATABASE_URL} drizzle-kit migrate"
+
+
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.693.0",
