@@ -1,7 +1,7 @@
 import { Express } from 'express';
 import { Server } from 'http';
 import express from 'express';
-import * as path from 'path';
+import path from 'path';
 import * as fs from 'fs/promises';
 
 // Funções placeholder para compatibilidade com o index.ts
