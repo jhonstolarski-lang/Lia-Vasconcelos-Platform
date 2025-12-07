@@ -6,7 +6,7 @@ import * as fs from 'fs/promises';
 
 // Funções placeholder para compatibilidade com o index.ts
 export async function setupVite(app: Express, server: Server) {
-  const { createServer } = await import('vite');
+  const { createServer } = await (eval('import("vite")') as Promise<typeof import('vite')>);
   const vite = await createServer({
     server: { middlewareMode: true },
     appType: 'custom',
