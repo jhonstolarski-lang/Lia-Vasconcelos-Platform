@@ -42,6 +42,15 @@ export const appRouter = router({
         })
       )
       .mutation(async ({ ctx, input }) => {
+        // --- INÍCIO DA CORREÇÃO: Verifica se o usuário tem e-mail ---
+        if (!ctx.user.email) {
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "Seu perfil de usuário não possui um e-mail válido. Por favor, complete seu cadastro ou faça login novamente.",
+          });
+        }
+        // --- FIM DA CORREÇÃO ---
+
         // Calcular valor baseado no plano
         const amounts = {
           "1_month": 1990, // R$ 19,90
@@ -95,7 +104,9 @@ export const appRouter = router({
                 description: `Assinatura Lia Vasconcelos - ${planName}`,
                 payment_method_id: "pix",
                 payer: {
-                  email: ctx.user.email || "noemail@example.com",
+                  // --- INÍCIO DA SEGUNDA CORREÇÃO: Usa o e-mail do usuário logado ---
+                  email: ctx.user.email,
+                  // --- FIM DA SEGUNDA CORREÇÃO ---
                   first_name: ctx.user.name || "Cliente",
                 },
               },
