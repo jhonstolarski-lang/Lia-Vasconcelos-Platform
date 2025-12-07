@@ -1,6 +1,6 @@
 import { inferAsyncReturnType } from '@trpc/server';
 import { CreateExpressContextOptions } from '@trpc/server/adapters/express';
-import { verifyToken } from './auth';
+import { verifyToken } from './oauth';
 
 export interface User {
   id: string;
