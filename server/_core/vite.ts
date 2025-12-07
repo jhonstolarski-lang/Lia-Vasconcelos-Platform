@@ -1,12 +1,12 @@
 import { Express } from 'express';
 import { Server } from 'http';
 import express from 'express';
-const path = require('path');
-const fs = require('fs/promises');
+import * as path from 'path';
+import * as fs from 'fs/promises';
 
 // Funções placeholder para compatibilidade com o index.ts
 export async function setupVite(app: Express, server: Server) {
-  const { createServer } = await (eval('import("vite")') as Promise<typeof import('vite')>);
+  const { createServer } = await import('vite');
   const vite = await createServer({
     server: { middlewareMode: true },
     appType: 'custom',
@@ -34,7 +34,7 @@ export async function setupVite(app: Express, server: Server) {
 }
 
 export function serveStatic(app: Express) {
-  const path = require('path');
+  import * as path from 'path';
   app.use(express.static(path.resolve('client/dist')));
   app.use('*', (req, res) => {
     res.sendFile(path.resolve('client/dist/index.html'));
